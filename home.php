@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Files</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/nofiy.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/nofiy.css" rel="stylesheet">
 </head>
 
 <body class="container bg-light">
 
     <form enctype="multipart/form-data" id="theform" class="form-group m-5 d-flex">
-        <input type="file" name="file" class="form-control" id="file" required>
+        <input type="file" name="file" accept=".xls,.xlsx,.csv" class="form-control" id="file" required>
         <button type="submit" name="save" class="btn btn-warning">Upload</button>
     </form>
 
@@ -61,106 +61,8 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.js"></script>
-    <script>
-        $('#load-bar').hide()
-        $('#messages').hide()
-
-
-        $("#theform").submit(function(e) {
-            e.preventDefault();
-            $('#data-table').hide();
-            $('#load-bar').show()
-            startAnimation();
-            setTimeout(function() {
-                $('#load-bar').hide()
-                $('#data-table').show()
-            }, 5500);
-            var formData = new FormData()
-            var file = $('#file')[0].files[0];
-            formData.append('file', file)
-            $.ajax({
-                url: 'load-data.php',
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    $('#data-table').html(response)
-                },
-                error: function(errorThrown) {
-
-                }
-            });
-        });
-
-        function validate(path) {
-            alert('submit data to database')
-            $.ajax({
-                url: 'load-data.php',
-                type: 'POST',
-                data: {
-                    "validation": true,
-                    'directory': path
-                },
-                success: function(response) {
-                    if (response > 0) {
-                        $('#data-table').hide()
-                        $('#messages').show()
-                        setTimeout(function() {
-                            $('#messages').fadeOut()
-                        }, 2000);
-                    }
-                },
-                error: function(errorThrown) {
-
-                }
-            });
-
-        };
-
-
-
-        // showing the progress bar while loading the file 
-        let progressElem = document.querySelector(".progress-elem");
-        let progressElemSvg = document.querySelector(".progress-elem svg");
-        let progressBar = document.querySelector(".progress-bar");
-        let success = document.querySelector(".success");
-        let progressTextContainer = document.querySelector(".progress-text-container");
-        let progressTextInner = document.querySelector(".progress-text-inner");
-
-        let interval;
-
-        function startAnimation() {
-            clearInterval(interval);
-            progressTextInner.innerHTML = 0;
-            progressTextContainer.style.display = "";
-            success.style.display = "none";
-
-            let initial = 251.3274;
-            let increment = 251.3274 / 100;
-            let incrementCount = 0;
-            interval = setInterval(() => {
-                if (incrementCount === 100) {
-                    initial = 0;
-                    progressBar.style.strokeDashoffset = initial;
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        progressTextContainer.style.display = "none";
-                        success.style.display = "";
-                    }, 100);
-                } else {
-                    initial -= increment;
-                    progressBar.style.strokeDashoffset = initial;
-                    incrementCount += 1;
-
-                    if (incrementCount !== 100) {
-                        progressTextInner.innerHTML = incrementCount;
-                    }
-                }
-            }, 50);
-        }
-    </script>
+    <script src="assets/js/bootstrap.js"></script>
+    <script src="assets/js/ajax.js"></script>
 </body>
 
 </html>
