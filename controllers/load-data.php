@@ -89,6 +89,10 @@ if (isset($_POST["validation"])) {
     $res = $pdo->content()->exec("INSERT INTO tablex 
                  (fieldOne ,fieldTwo , fieldThree,fieldFour ,fieldFive ,fieldSix ,fieldSeven, fieldEight , fieldNine ,fieldTen) VALUES 
                 ('". $tableX[0]. "','" . $tableX[1] ."','" . $tableX[2] ."','" . $tableX[3]. "','". $tableX[4] . "','"  .$tableX[5] . "','" . $tableX[6]."','".$tableX[7] . "','"  . $tableX[8] . "','" . $tableX[9]. "')");
+
+    $res .= $pdo->content()->exec("INSERT INTO tabley 
+                 (fieldOne ,fieldTwo , fieldThree,fieldFour ,fieldFive ,fieldSix ,fieldSeven, fieldEight , fieldNine ,fieldTen) VALUES 
+                ('". $tableY[0]. "','" . $tableY[1] ."','" . $tableY[2] ."','" . $tableY[3]. "','". $tableY[4] . "','"  .$tableY[5] . "','" . $tableY[6]."','".$tableY[7] . "','"  . $tableY[8] . "','" . $tableY[9]. "')");
     echo $res;
     exit();
 }
