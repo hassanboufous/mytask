@@ -5,11 +5,14 @@ $("#theform").submit(function (e) {
   e.preventDefault();
   $("#data-table").hide();
   $("#load-bar").show();
+
   startAnimation();
+
   setTimeout(function () {
     $("#load-bar").hide();
     $("#data-table").show();
   }, 5500);
+
   var formData = new FormData();
   var file = $("#file")[0].files[0];
   formData.append("file", file);
@@ -42,7 +45,7 @@ function validate(path) {
         setTimeout(function () {
           $("#messages").fadeOut();
           $("#file").val("");
-        }, 2000);
+        }, 3000);
       }
     },
     error: function (errorThrown) {},

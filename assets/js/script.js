@@ -51,6 +51,3 @@ document.querySelector("button").addEventListener("click", () => {
       return $(this).attr("aria-valuenow") + "%";
     });
   });
-
-
-  alert('hhhhhh')

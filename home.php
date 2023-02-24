@@ -20,9 +20,9 @@
 
     <div id="messages">
         <input type="checkbox" id="one" class="hidden" name="ossm">
-        <label for="one" class="alert-message text-center">
+        <label for="one" class="alert-message text-center" style="background-color:#e6ae47;">
             <strong> <i class="fa fa-heart mr-5"></i>
-                <span class="success">Success</span></strong> Your data has been stored successfully !! ...
+                <span class="text-success">Success</span></strong> Your data has been stored successfully !! ...
             <span class="close">×</button>
         </label>
     </div>
