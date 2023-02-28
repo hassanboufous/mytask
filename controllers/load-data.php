@@ -11,27 +11,29 @@ if (isset($_FILES["file"])) {
     $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
     // Check if the file is a CSV or Excel file
-    if ($extension == 'csv' || $extension == 'xlsx') {
+    if ($extension == 'csv' || $extension == 'xlsx'|| $extension == 'xls') {
         // Read the file data
         if ($extension == 'csv') {
-            $data = array_map('str_getcsv', file($tmp_path));
+            // $data = array_map('str_getcsv', file($tmp_path));
         }
         else{
             $path = '../uploads/';
-            $Directory = UploadFile::upload($file,$path);
-            $reader = new SpreadsheetReader($Directory);
-
-            $data = array();
-            foreach ($reader as $key => $row) {
-                array_push($data, $row);
-            }
-            
-            $nbrRow = count($data);
-            // Fill tables (X,Y,Z) with data that comes from excel sheet
-            for ($i = 0; $i < $nbrRow - 1; $i++) {
-                array_push($tableX, $data[$i + 1][0]);
-                array_push($tableY, $data[$i + 1][1]);
-                array_push($tableZ, $data[$i + 1][2]);
+            $file_path = UploadFile::upload($file,$path);
+            if(!empty($file_path)){
+                $reader = new SpreadsheetReader($file_path);
+    
+                $data = array();
+                foreach ($reader as $key => $row) {
+                    array_push($data, $row);
+                }
+                
+                $nbrRow = count($data);
+                // Fill tables (X,Y,Z) with data that comes from excel sheet
+                for ($i = 0; $i < $nbrRow - 1; $i++) {
+                    array_push($tableX, $data[$i + 1][0]);
+                    array_push($tableY, $data[$i + 1][1]);
+                    array_push($tableZ, $data[$i + 1][2]);
+                }
             }
             
             // Display the data to the user for validation 
@@ -39,7 +41,7 @@ if (isset($_FILES["file"])) {
                      echo '
                             <table class="table  mx-auto">
                                 <thead class="table-light">
-                                    <tr class="table-danger">
+                                    <tr class="table-success">
                                         <th>TableX</th>
                                         <th>TableY</th>
                                         <th>TableZ</th>
@@ -60,7 +62,9 @@ if (isset($_FILES["file"])) {
                                 </tbody>
 
                             </table>
-                        <button onclick="validate(\''.$Directory.'\')" class="btn btn-success mx-auto mt-3">Validate and submit</button>
+                            <div class="d-flex justify-content-between">
+                                <button onclick="validate(\''.$file_path. '\')" class="btn btn-success">Save</button><button class="btn btn-danger ml-4" onclick="clearData()">Cancel</button>
+                            </div>
                     '; 
                 }
             }
