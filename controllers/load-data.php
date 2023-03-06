@@ -75,8 +75,8 @@ if (isset($_FILES["file"])) {
 // Submit imported data to the database 
 if (isset($_POST["validation"])) {
     
-    $Directory = $_POST['directory'];
-    $reader = new SpreadsheetReader($Directory);
+    $file_path = $_POST['directory'];
+    $reader = new SpreadsheetReader($file_path);
     $data = array();
 
     foreach ($reader as $key => $row) {
